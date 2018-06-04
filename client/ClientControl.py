@@ -367,7 +367,8 @@ class PrivateControl(m_framePrivateChat):
         self.sendRoomMsg()
 
     def recvRoomMsg(self, username, msg):
-        smanager.playMsgSound(GlobalVal.msgSoundFlag)
+        if username != GlobalVal.user_name:
+            smanager.playMsgSound(GlobalVal.msgSoundFlag)
         currPos = self.m_textCtrlRoomMessage.GetLastPosition()
         self.m_textCtrlRoomMessage.AppendText(username + ":\n")
         self.m_textCtrlRoomMessage.AppendText(msg + '\n')
@@ -417,6 +418,12 @@ class PrivateControl(m_framePrivateChat):
         GlobalVal.sockt.send('07', self.room_name)
         self.Destroy()
 
+    def OnButtonSetHost(self, event):
+        self.setHost()
+
+    def OnbuttonKick(self, event):
+        self.kick()
+
     def OnPopupOne(self, event):
         if self.currentSelectUser != GlobalVal.user_name:
             self.newchatUI(2, self.currentSelectUser)
@@ -427,6 +434,9 @@ class PrivateControl(m_framePrivateChat):
 
     def OnPopupTwo(self, event):
         # print("设为房主")
+        self.setHost()
+
+    def setHost(self):
         if GlobalVal.user_name != self.host_name:
             wx.MessageBox("你无此权限", "提示", wx.OK | wx.ICON_INFORMATION)
         elif GlobalVal.user_name == self.currentSelectUser and GlobalVal.user_name == self.host_name:
@@ -436,6 +446,9 @@ class PrivateControl(m_framePrivateChat):
                                  (self.room_name, self.currentSelectUser))
 
     def OnPopupThree(self, event):
+        self.kick()
+
+    def kick(self):
         if GlobalVal.user_name != self.host_name:
             wx.MessageBox("你无此权限", "提示", wx.OK | wx.ICON_INFORMATION)
         elif GlobalVal.user_name == self.currentSelectUser:

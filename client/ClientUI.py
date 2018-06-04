@@ -1464,6 +1464,8 @@ class m_framePrivateChat (wx.Frame):
         self.m_textCtrlMyMessage.Bind(wx.EVT_TEXT_ENTER, self.OntextEnter)
         self.m_buttonSend.Bind(wx.EVT_BUTTON, self.OnButtonSend)
         self.m_buttonClose.Bind(wx.EVT_BUTTON, self.OnButtonClose)
+        self.m_buttonSetHost.Bind(wx.EVT_BUTTON, self.OnButtonSetHost)
+        self.m_buttonKick.Bind(wx.EVT_BUTTON, self.OnbuttonKick)
         self.m_listRoomPeople.Bind(
             wx.EVT_LIST_ITEM_RIGHT_CLICK, self.OnRoomuserRightClick)
         self.m_listRoomPeople.Bind(
@@ -1477,6 +1479,12 @@ class m_framePrivateChat (wx.Frame):
         event.Skip()
 
     def OntextEnter(self, event):
+        event.Skip()
+
+    def OnButtonSetHost(self, event):
+        event.Skip()
+
+    def OnbuttonKick(self, event):
         event.Skip()
 
     def OnButtonSend(self, event):
